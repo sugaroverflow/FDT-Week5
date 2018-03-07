@@ -8,12 +8,17 @@ class: impact
 # Intro to Backend
 ## Drupal Training Week 5
 
-### Fatima | fkhalid@echidna | @sugaroverflow
+Fatima | fkhalid@echidna.ca | @sugaroverflow
+
+Slides:  [https://goo.gl/rCVSwS](https://goo.gl/rCVSwS)
 
 ---
 
 # Modules
-## tldr; lots of functionality out of the box
+## Why do we use modules?
+- Lots of core functionality out of the box
+
+## Types of Modules:
 - Core
 - Contrib
 - Custom
@@ -67,8 +72,7 @@ What the website returns at the end of all of this. It might be HTTP 200 OK or 4
 ---
 class: impact
 
-# The Drupal 8 framework.
-
+# The Drupal 8 framework
 
 ---
 
@@ -192,7 +196,19 @@ class: impact
 - reusable
 - flexible
 
-## creating "extensible containers"
+
+```php
+class Shape {
+  public function getArea();
+}
+
+class Circle extends Shape {
+   public $radius;
+}
+class Rectangle extends Shape {
+   public $length, $width;
+}
+```
 ???
 
 ---
@@ -301,7 +317,7 @@ You might define your own services if you need to write custom
 
 ---
 # OOP | Plugins
-## plugins are like lego blocks with functionality
+## plugins are like functional lego blocks
 
 - swappable
 - different types
@@ -332,17 +348,17 @@ class CustomBlock extends BlockBase {
 
 ---
 # OOP | Resources
-## just the beginning of OOP
+## there's so much more
 
-### Many resources for learning OOP are available
+### Resources for learning OOP
   - http://php.net/manual/en/language.oop5.php
   - http://code.tutsplus.com
 
 ### Resources for Drupal 8
-- api.drupal.org
-- www.drupal.org/documentation/develop
-- http://www.drupalcontrib.org/api/drupal/8
-- https://www.drupal.org/coding-standards
+  - api.drupal.org
+  - www.drupal.org/documentation/develop
+  - http://www.drupalcontrib.org/api/drupal/8
+  - https://www.drupal.org/coding-standards
 
 ---
 class: impact
@@ -351,12 +367,12 @@ class: impact
 
 ---
 # Workshop Class 5 | Overview
+## We are going to create our first module!
 
-### Create a module that:
-  - Alters a core Drupal form
-  - Defines a path to a custom page
-  - Defines a menu item for that path
-
+### Our custom module will:
+  - Alter a Drupal core form
+  - Define a path to a custom page
+  - Define a menu item for that path
 
 ---
 # 5.1: Create a Module
@@ -392,7 +408,8 @@ Search for hook_form_alter
 <?php
 use Drupal\Core\Form\FormStateInterface;
 
-function mymodule_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function mymodule_form_alter(&$form, FormStateInterface $form_state,
+ $form_id) {
   if ($form_id === 'blog_node_form') {
     $form['actions']['submit']['#value'] = t('Save Blog');
   }
