@@ -380,12 +380,12 @@ class: impact
 - Create your module directory
   - `/modules/custom/mymodule`
 - Create a `info.yml` file
-  - `/modules/custom/mymodule.info.yml`
+  - `/modules/custom/mymodule/mymodule.info.yml`
 
 ```yaml
 name: My First Custom Module
 type: module
-description: ‘This is the first module I’ve created.’
+description: "This is the first module I’ve created."
 core: ‘8.x’
 package: ‘Custom’
 dependencies:
@@ -399,7 +399,7 @@ Go to api.drupal.org
 Set to Drupal 8
 Search for hook_form_alter
 
-- Change the "Comment" button label for Blog content type.
+- Change the "Save" button label for Blog content type.
 - Create a module file
   - `/mymodule/mymodule.module`
 - Add a `hook_form_alter` and flush cache:
@@ -410,7 +410,7 @@ use Drupal\Core\Form\FormStateInterface;
 
 function mymodule_form_alter(&$form, FormStateInterface $form_state,
  $form_id) {
-  if ($form_id === 'blog_node_form') {
+  if ($form_id === 'node_blog_form') {
     $form['actions']['submit']['#value'] = t('Save Blog');
   }
 }
@@ -424,7 +424,7 @@ function mymodule_form_alter(&$form, FormStateInterface $form_state,
 
 ```php
 mymodule.content
-  path: `/mymodule`
+  path: '/mymodule'
   defaults:
     _controller: '\Drupal\mymodule\Controller\FirstController::content'
   requirements:
@@ -438,7 +438,11 @@ mymodule.content
   - in `src`, create a `Controller` folder
   - in `Controller`, create a `FirstController.php` file
 - You should have:
-  - `custom/mymodule/src/Controller/FirstController`
+  - `custom/mymodule/src/Controller/`
+  - `FirstController/FirstController.php`
+
+- namespace:
+  -`\Drupal\mymodule\Controller\FirstController`
 
 ---
 # 5.4 - Add Pages and Menu Items 3/4
@@ -451,7 +455,7 @@ namespace \Drupal\mymodule\Controller;
 use \Drupal\Core\Controller\ControllerBase;
 
 class FirstController extends ControllerBase {
-  public function content {
+  public function content( ) {
     return [
       '#type' => 'markup',
       '#markup' => t('This is my menu linked custom page'),
